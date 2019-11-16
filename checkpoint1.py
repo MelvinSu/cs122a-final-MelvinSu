@@ -18,11 +18,9 @@ while (1):
     data = bus.read_i2c_block_data(0x44, 0x00, 6)
 
     temp = data[0] * 256 + data[1]
-    cTemp = -45 + (175 * temp/ 65535.0)
     fTemp = -49 + (315 * temp/ 65535.0)
     humidity = (100 * data[3] * 256 + data[4]) / 65535.0
 
-    print ("In Celsius:", cTemp)
     print ("In Fahrenheit:", fTemp)
     print ("In Relative Humidity: %", humidity,"\n")
     
@@ -40,7 +38,8 @@ while (1):
     if (fTemp < 78):
         rf_device.tx_code(4281804, 1, 150)
         print("Turn off")
-    print('')
+
     """
+    print('')
 
     time.sleep(1.5)
